@@ -3,7 +3,7 @@ package com.example.auctions.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class UsernameExistsException extends Exception{
+public class UsernameExistsException extends RuntimeException{
 
     private static final String message = "Username already exists";
 

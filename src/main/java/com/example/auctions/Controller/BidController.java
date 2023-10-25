@@ -1,8 +1,10 @@
 package com.example.auctions.Controller;
 
+import com.example.auctions.Exceptions.BidNotFoundException;
 import com.example.auctions.Model.dtos.BidDTO;
 import com.example.auctions.Model.dtos.request.BidPlaceRequestDTO;
 import com.example.auctions.Repository.service.BidService;
+import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,13 @@ public class BidController {
 
     @PostMapping("/placeBid")
     public ResponseEntity<BidDTO> placeBid(@RequestBody BidPlaceRequestDTO requestDTO) {
-        bidService.placeBid(requestDTO);
         return new ResponseEntity<>(bidService.placeBid(requestDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/id/{bidId}")
+    public ResponseEntity<String> deleteBid(@PathVariable final long bidId)
+        throws BidNotFoundException {
+        bidService.deleteBidById(bidId);
+        return new ResponseEntity<>("Bid deleted successfully", HttpStatus.OK);
     }
 }

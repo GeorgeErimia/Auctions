@@ -36,7 +36,7 @@ public class Auction {
     private User user;
 
     @PrePersist
-    public void initEndTime() {
+    public void initStartAndEndTime() {
         if (endTime == null) {
             endTime = LocalDateTime.now().plusDays(1);
         }

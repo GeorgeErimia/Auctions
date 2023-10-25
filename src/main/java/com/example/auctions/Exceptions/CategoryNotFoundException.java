@@ -1,6 +1,6 @@
 package com.example.auctions.Exceptions;
 
-public class CategoryNotFoundException extends Exception{
+public class CategoryNotFoundException extends RuntimeException{
 
     private static final String message = "Category not found";
 

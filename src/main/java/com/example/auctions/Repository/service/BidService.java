@@ -9,6 +9,7 @@ import com.example.auctions.Model.dtos.request.BidPlaceRequestDTO;
 import com.example.auctions.Repository.AuctionRepository;
 import com.example.auctions.Repository.BidRepository;
 import com.example.auctions.Repository.UserRepository;
+import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,32 +61,54 @@ public class BidService {
         }
     }
 
-    public BidDTO placeBid(BidPlaceRequestDTO requestDTO)
-    throws AuctionNotFoundException, UserNotFoundException{
+    public void deleteBidById(Long bidId)
+            throws BidNotFoundException {
+        Optional<Bid> bid = bidRepository.findById(bidId);
+        if(!bid.isPresent()){
+            throw new BidNotFoundException("Bid with id '" + bidId + "' not found!");
+        }
+        bidRepository.deleteById(bidId);
+    }
+
+    public BidDTO placeBid(@NotNull BidPlaceRequestDTO requestDTO)
+    throws AuctionNotFoundException, UserNotFoundException, AuctionEndedException, BidBySameUser, LessAmountException {
         Optional<Auction> auction = auctionRepository.findById(requestDTO.getAuctionId());
+        // Check if the user exists or not
+        Optional<User> user = userRepository.findByUsername(requestDTO.getUsername());
+        if(!user.isPresent()) {
+            throw new UserNotFoundException("User '" + requestDTO.getUsername() + "' not found!");
+        }
+
+        // Check if the auction exists or not
         if(!auction.isPresent()) {
             throw new AuctionNotFoundException("Auction with id '" + requestDTO.getAuctionId() + "' not found!");
         }
 
-        Optional<User> user = userRepository.findByUsername(requestDTO.getUsername());
-        if(!user.isPresent()) {
-            throw new UserNotFoundException("User '" + requestDTO.getUsername() + "' not found!");
+        // Check if the auction has ended
+        if(auction.get().checkIfEnded()) {
+            throw new AuctionEndedException("We're sorry, but auction with id '" + requestDTO.getAuctionId() + "' has ended!");
+        }
+
+
+        // Check if the auction's highest bidder is the same as the one who places the current bid
+        if(auction.get().getHighestBid() != null && auction.get().getHighestBid().getPlacedBy().equals(user.get())) {
+            throw new BidBySameUser("You cannot bid right now! You are currently the highest bidder on this auction.");
+        }
+
+        // Check if the current bid is higher than the auction's highest bid
+        if(auction.get().getHighestBid() != null && auction.get().getHighestBid().getAmount() >= requestDTO.getAmount()) {
+            throw new LessAmountException("Your bid must be higher than the current highest bid!");
+        }
+
+        // Check if the auction owner is the bid placer
+        if(auction.get().getUser().getId().equals(user.get().getId())) {
+            throw new BidBySameUser("You cannot bid on your own auction!");
         }
 
         Bid bid = new Bid();
         bid.setAuction(auction.get());
         bid.setPlacedBy(user.get());
         bid.setAmount(requestDTO.getAmount());
-
-        if(auction.get().checkIfEnded()) {
-            throw new AuctionEndedException("We're sorry, but auction with id '" + requestDTO.getAuctionId() + "' has ended!");
-        }
-        if(auction.get().getHighestBid() != null && auction.get().getHighestBid().getAmount() >= requestDTO.getAmount()) {
-            throw new LessAmountException("Your bid must be higher than the current highest bid!");
-        }
-        if(auction.get().getUser().getId().equals(user.get().getId())) {
-            throw new BidBySameUser("You cannot bid on your own auction!");
-        }
 
         auction.get().setHighestBid(bid);
 
@@ -98,6 +121,7 @@ public class BidService {
         User user = bid.getPlacedBy();
         bidDTO.setPlacedById(user.getId());
         bidDTO.setPlacedAt(bid.getTimeOfPlacing());
+        bidDTO.setAuctionName(bid.getAuction().getItem().getName());
         return bidDTO;
     }
 }

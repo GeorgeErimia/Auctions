@@ -2,7 +2,7 @@ package com.example.auctions.Exceptions;
 
 import com.example.auctions.Model.dtos.ProfileDTO;
 
-public class ProfileNotFoundException extends Exception{
+public class ProfileNotFoundException extends RuntimeException{
     private static final String MESSAGE = "Profile not found";
     public ProfileNotFoundException() {
         super(MESSAGE);

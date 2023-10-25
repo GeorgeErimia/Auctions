@@ -16,4 +16,5 @@ public class BidDTO {
     LocalDateTime placedAt;
     Double amount;
     Long placedById;
+    String auctionName;
 }

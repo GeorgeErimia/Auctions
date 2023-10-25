@@ -21,7 +21,7 @@ public class AuctionDTO {
     private Double startingPrice;
     private String categoryName;
     private Long userId;
-    private Double highestBid;
+    private Double highestBidValue;
     private String placedByUsername;
     private LocalDateTime placedAt;
 }

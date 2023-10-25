@@ -139,7 +139,7 @@ public class AuctionService {
         auctionDTO.setUserId(auction.getUser().getId());
         auctionDTO.setPlacedByUsername(auction.getUser().getUsername());
         if(auction.getHighestBid() != null){
-            auctionDTO.setHighestBid(auction.getHighestBid().getAmount());
+            auctionDTO.setHighestBidValue(auction.getHighestBid().getAmount());
         }
         return auctionDTO;
     }
