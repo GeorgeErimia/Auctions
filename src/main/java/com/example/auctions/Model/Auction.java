@@ -1,49 +1,29 @@
 package com.example.auctions.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "auctions")
 public class Auction {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = true)
-    @JoinColumn(name = "bid_id")
-    private Bid highestBid;
-
     @Column(nullable = false)
-    private LocalDateTime endTime;
+    private String name;
 
-//    @OneToOne(mappedBy = "auction", cascade = CascadeType.ALL)
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_id")
-    private Item item;
-
-    @ManyToOne(optional = false, targetEntity = User.class)
+    // Create a join column with the name "user_id" that references the "id" column in the "users" table
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
-    @PrePersist
-    public void initStartAndEndTime() {
-        if (endTime == null) {
-            endTime = LocalDateTime.now().plusDays(1);
-        }
-    }
-
-    public boolean checkIfEnded() {
-        LocalDateTime now = LocalDateTime.now();
-        return now.isAfter(endTime);
-    }
 }
