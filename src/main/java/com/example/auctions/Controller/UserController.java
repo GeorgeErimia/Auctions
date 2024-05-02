@@ -5,6 +5,7 @@ import com.example.auctions.Service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,15 +13,22 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v2/users")
-@CrossOrigin(origins = "http://localhost:3000/*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;
 
-    // Create a REST API GET endpoint that will return a User from the database
+    // Create a REST API GET endpoint that will return a User from the database BASED BY ID
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable final Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         UserDTO userDTO = userService.getUserById(id);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    // Create a REST API GET endpoint that will return a User from the database BASED BY USERNAME
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
+        UserDTO userDTO = userService.getUserByUsername(username);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
@@ -46,6 +54,7 @@ public class UserController {
     }
 
     // Create a REST API DELETE endpoint that will delete a User from the database
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable final Long id) {
         userService.deleteUserById(id);

@@ -5,6 +5,7 @@ import com.example.auctions.Service.AuctionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v2/auctions")
-@CrossOrigin(origins = "http://localhost:3000/*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuctionController {
 
     private final AuctionService auctionService;
@@ -46,6 +47,7 @@ public class AuctionController {
     }
 
     // Create a REST API DELETE endpoint that will delete an Auction from the database
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAuctionById(@PathVariable final Long id) {
         auctionService.deleteAuctionById(id);

@@ -10,6 +10,8 @@ public interface UserService {
 
     UserDTO getUserById(Long id);
 
+    UserDTO getUserByUsername(String username);
+
     List<UserDTO> getAllUsers();
 
     UserDTO updateUserById(Long id, UserDTO userDTO);

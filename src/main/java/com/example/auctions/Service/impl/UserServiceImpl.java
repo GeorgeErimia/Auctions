@@ -45,6 +45,16 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
+    @Override
+    public UserDTO getUserByUsername(String username) {
+        // Get the Entity from the DB
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User with username: " + username + " not found!"));
+
+        // Convert Entity to DTO using ModelMapper
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return userDTO;
+    }
+
     // Method that returns all users from the database
     @Override
     public List<UserDTO> getAllUsers() {
