@@ -29,10 +29,7 @@ const HeaderComponentV2 = () => {
       {/* <div className="header-search-bar"></div> */}
       <div className="header-user-info">
         {currentUser != null && (
-          <span className="header-user-span">
-            Logged in as{"  "}
-            <a href={`/user/${currentUser}`}> {currentUser}</a>
-          </span>
+          <span className="header-user-span">Logged in as {currentUser}</span>
         )}
         <div className="header-user-dropdown">
           {currentUser != null && (
