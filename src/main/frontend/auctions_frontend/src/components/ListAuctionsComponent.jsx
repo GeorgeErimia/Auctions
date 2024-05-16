@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isAdminUser } from "../services/AuthService";
-import { getAllAuctions, removeAuction } from "../services/AuctionService";
-import { getLoggedInUserObj, getUserById } from "../services/UserService";
-import axios from "axios";
+import { getLoggedInUser, isAdminUser } from "../services/AuthService";
+import {
+  getAllAuctions,
+  getAuctionsByOwner,
+  isEnded,
+  removeAuction,
+} from "../services/AuctionService";
+import { getLoggedInUserObj } from "../services/UserService";
+import { convertToDisplay } from "../helper/DateProcessing";
 
-const ListAuctionsComponent = () => {
+const ListAuctionsComponent = ({ user }) => {
   const [auctions, setAuctions] = useState([]);
-  const [currentUserId, setCurrentUserId] = useState();
+  const [currentUserId, setCurrentUserId] = useState("");
 
   const navigator = useNavigate();
 
   const isAdmin = isAdminUser();
 
+  const loggedInUser = getLoggedInUser();
+
   useEffect(() => {
     listAuctions();
+    // Set up a timer to update the auctions every second
+    const interval = setInterval(() => {
+      listAuctions();
+    }, 1000);
+
+    // Clean up the timer when the component unmounts
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -28,12 +42,19 @@ const ListAuctionsComponent = () => {
   });
 
   function listAuctions() {
-    getAllAuctions()
-      .then((response) => {
-        setAuctions(response.data);
-        // console.log(auctions);
-      })
-      .catch((error) => console.error(error));
+    if (user == null) {
+      getAllAuctions()
+        .then((response) => {
+          setAuctions(response.data);
+        })
+        .catch((error) => console.error(error));
+    } else {
+      getAuctionsByOwner(user)
+        .then((response) => {
+          setAuctions(response.data);
+        })
+        .catch((error) => console.error(error));
+    }
   }
 
   function addNewAuction() {
@@ -41,7 +62,6 @@ const ListAuctionsComponent = () => {
   }
 
   function updateAuction(id) {
-    console.log("Update auction with id: " + id);
     navigator("/update-auction/" + id);
   }
 
@@ -58,20 +78,34 @@ const ListAuctionsComponent = () => {
     }
   }
 
+  function auctionsListHeader() {
+    if (user != null) {
+      if (user === loggedInUser) {
+        return <h1>My Auctions</h1>;
+      } else {
+        return <h1>{`${user}'s Auctions`}</h1>;
+      }
+    } else {
+      return <h1>Auctions List</h1>;
+    }
+  }
+
   return (
     <div className="container">
-      <h1>Auctions List</h1>
-      {/* Button to add a new Auction  */}
-      <button className="btn btn-primary mb-2" onClick={addNewAuction}>
-        Add Auction
-      </button>
+      {auctionsListHeader()}
+      {(user === loggedInUser || user == null) && (
+        <button className="btn btn-primary mb-2" onClick={addNewAuction}>
+          Add Auction
+        </button>
+      )}
+
       <table className="table table-bordered table-striped">
         <thead>
           <tr>
             <th>Id</th>
             <th>Name</th>
             <th>User (Owner)</th>
-            {/* <th>User Id</th> */}
+            <th>Ends In</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -80,19 +114,25 @@ const ListAuctionsComponent = () => {
             return (
               <tr key={auction.id}>
                 <td>{auction.id}</td>
-                <td>{auction.name}</td>
-                <td>{auction.userUsername}</td>
-                {/* <td>{auction.userId}</td> */}
-
                 <td>
-                  {(isAdmin || currentUserId == auction.userId) && (
-                    <button
-                      className="btn btn-info me-2"
-                      onClick={() => updateAuction(auction.id)}
-                    >
-                      Update
-                    </button>
-                  )}
+                  <a href={`/auctions/${auction.id}`}>{auction.name}</a>
+                </td>
+                <td>
+                  <a href={`/user/${auction.userUsername}`}>
+                    {auction.userUsername}
+                  </a>
+                </td>
+                <td>{convertToDisplay(auction.endDate)}</td>
+                <td>
+                  {(isAdmin || currentUserId == auction.userId) &&
+                    !isEnded(auction) && (
+                      <button
+                        className="btn btn-info me-2"
+                        onClick={() => updateAuction(auction.id)}
+                      >
+                        Update
+                      </button>
+                    )}
 
                   {isAdmin && (
                     <button

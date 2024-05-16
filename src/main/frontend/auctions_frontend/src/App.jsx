@@ -5,9 +5,11 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import LoginComponent from "./components/LoginComponent";
 import { isUserLoggedIn } from "./services/AuthService";
 import ListAuctionsComponent from "./components/ListAuctionsComponent";
-import AuctionComponent from "./components/AuctionComponent";
+import AuctionFormComponent from "./components/AuctionFormComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import UserComponent from "./components/UserComponent";
+import HomeComponent from "./components/HomeComponent";
+import AuctionComponent from "./components/AuctionComponent";
 
 function App() {
   function AuthenticatedRoute({ children }) {
@@ -25,7 +27,7 @@ function App() {
       <BrowserRouter>
         <HeaderComponent />
         <Routes>
-          <Route path="/" element={<LoginComponent />}></Route>
+          <Route path="/" element={<HomeComponent />}></Route>
           <Route
             path="/auctions"
             element={
@@ -36,7 +38,7 @@ function App() {
           ></Route>
 
           <Route
-            path="/add-auction"
+            path="/auctions/:id"
             element={
               <AuthenticatedRoute>
                 <AuctionComponent />
@@ -45,10 +47,19 @@ function App() {
           ></Route>
 
           <Route
+            path="/add-auction"
+            element={
+              <AuthenticatedRoute>
+                <AuctionFormComponent />
+              </AuthenticatedRoute>
+            }
+          ></Route>
+
+          <Route
             path="/update-auction/:id"
             element={
               <AuthenticatedRoute>
-                <AuctionComponent />
+                <AuctionFormComponent />
               </AuthenticatedRoute>
             }
           ></Route>

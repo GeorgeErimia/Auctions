@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserByUsername } from "../services/UserService";
+import ListAuctionsComponent from "./ListAuctionsComponent";
+import { getLoggedInUser } from "../services/AuthService";
 
 const UserComponent = () => {
   const { username } = useParams();
@@ -25,6 +27,9 @@ const UserComponent = () => {
         <h1 className="profile-name">User: {name}</h1>
         <h5 className="profile-data">Email: {email}</h5>
         <h5 className="profile-data">Username: {username}</h5>
+      </div>
+      <div>
+        <ListAuctionsComponent user={username} />
       </div>
     </div>
   );

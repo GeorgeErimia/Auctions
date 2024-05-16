@@ -9,12 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuctionDTO {
+public class UImageDTO {
     private Long id;
-    private String name;
-    private Long userId;
-    private String description;
-    private String images;
-    private String userUsername;
-    private String endDate;
+    private String imageUrl;
+    private Boolean isDefault;
+    private Long auctionId;
 }

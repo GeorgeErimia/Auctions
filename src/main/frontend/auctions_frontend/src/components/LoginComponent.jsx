@@ -60,7 +60,7 @@ const LoginComponent = () => {
               <form action="">
                 <div className="row mb-3">
                   <label className="col-md-3 control-label">
-                    Username or Email{" "}
+                    Username or Email
                   </label>
                   <div className="col-md-9">
                     <input
@@ -73,9 +73,9 @@ const LoginComponent = () => {
                     />
                   </div>
                 </div>
-                <div className="row-mb-3">
+                <div className="row mb-3">
                   <label className="col-md-3 control-label">Password</label>
-                  <div className="com-md-9">
+                  <div className="col-md-9">
                     <input
                       type="password"
                       name="password"
@@ -95,6 +95,9 @@ const LoginComponent = () => {
                   </button>
                 </div>
               </form>
+              <span>
+                Don't have an account? <a href="/register">Register Here</a>
+              </span>
             </div>
           </div>
         </div>

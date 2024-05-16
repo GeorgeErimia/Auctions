@@ -1,0 +1,2 @@
+TODO: Configure Authorization: Reject Auction Post requests between users (owners)
+TODO: Implement Images, create an Image entity and add a relationship to the Auction entity

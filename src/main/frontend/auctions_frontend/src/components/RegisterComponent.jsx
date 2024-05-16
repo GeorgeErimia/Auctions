@@ -20,7 +20,7 @@ const RegisterComponent = () => {
     registerApiCall(register)
       .then((response) => {
         console.log(response.data);
-        navigator("/login")
+        navigator("/login");
       })
       .catch((error) => {
         console.error(error);
@@ -35,7 +35,7 @@ const RegisterComponent = () => {
         <div className="col-md-6 offset-md-3">
           <div className="card">
             <div className="card-header">
-              <h2 className="text-center">Registration Form</h2>
+              <h2 className="text-center">Register</h2>
             </div>
 
             <div className="card-body">
@@ -105,6 +105,9 @@ const RegisterComponent = () => {
                   </button>
                 </div>
               </form>
+              <span>
+                Already have an account? <a href="/login">Log in</a>
+              </span>
             </div>
           </div>
         </div>

@@ -1,0 +1,7 @@
+TODO: Configure the action buttons on AuctionComponent.
+
+TODO: Add End time to AuctionComponent
+
+TODO: Add Auction Information (name, description, ... ) to AuctionComponent
+
+TODO: Solve problem where ListAuctionComponent gets data from database every second while refreshing

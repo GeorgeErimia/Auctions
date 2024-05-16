@@ -9,6 +9,10 @@ public interface AuctionService {
 
     AuctionDTO getAuctionById(Long id);
 
+    AuctionDTO getAuctionByUserId(Long userId);
+
+    List<AuctionDTO> getAuctionsByUserUsername(String userUsername);
+
     List<AuctionDTO> getAllAuctions();
 
     AuctionDTO updateAuctionById(Long id, AuctionDTO auctionDTO);

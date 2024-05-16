@@ -19,9 +19,15 @@ public class UserController {
     private final UserService userService;
 
     // Create a REST API GET endpoint that will return a User from the database BASED BY ID
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+//        UserDTO userDTO = userService.getUserById(id);
+//        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+//    }
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         UserDTO userDTO = userService.getUserById(id);
+        userDTO.setPassword(null);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
