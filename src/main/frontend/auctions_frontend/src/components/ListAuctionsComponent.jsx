@@ -9,6 +9,8 @@ import {
 } from "../services/AuctionService";
 import { getLoggedInUserObj } from "../services/UserService";
 import { convertToDisplay } from "../helper/DateProcessing";
+// import HeaderComponent from "./HeaderComponent";
+import HeaderComponentV2 from "./HeaderComponentV2";
 
 const ListAuctionsComponent = ({ user }) => {
   const [auctions, setAuctions] = useState([]);
@@ -91,64 +93,68 @@ const ListAuctionsComponent = ({ user }) => {
   }
 
   return (
-    <div className="container">
-      {auctionsListHeader()}
-      {(user === loggedInUser || user == null) && (
-        <button className="btn btn-primary mb-2" onClick={addNewAuction}>
-          Add Auction
-        </button>
-      )}
+    <>
+      {/* <HeaderComponent /> */}
+      {/* <HeaderComponentV2 /> */}
+      {/* <div className="container">
+        {auctionsListHeader()}
+        {(user === loggedInUser || user == null) && (
+          <button className="btn btn-primary mb-2" onClick={addNewAuction}>
+            Add Auction
+          </button>
+        )}
 
-      <table className="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>User (Owner)</th>
-            <th>Ends In</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {auctions.map((auction) => {
-            return (
-              <tr key={auction.id}>
-                <td>{auction.id}</td>
-                <td>
-                  <a href={`/auctions/${auction.id}`}>{auction.name}</a>
-                </td>
-                <td>
-                  <a href={`/user/${auction.userUsername}`}>
-                    {auction.userUsername}
-                  </a>
-                </td>
-                <td>{convertToDisplay(auction.endDate)}</td>
-                <td>
-                  {(isAdmin || currentUserId == auction.userId) &&
-                    !isEnded(auction) && (
+        <table className="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>User (Owner)</th>
+              <th>Ends In</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {auctions.map((auction) => {
+              return (
+                <tr key={auction.id}>
+                  <td>{auction.id}</td>
+                  <td>
+                    <a href={`/auctions/${auction.id}`}>{auction.name}</a>
+                  </td>
+                  <td>
+                    <a href={`/user/${auction.userUsername}`}>
+                      {auction.userUsername}
+                    </a>
+                  </td>
+                  <td>{convertToDisplay(auction.endDate)}</td>
+                  <td>
+                    {(isAdmin || currentUserId == auction.userId) &&
+                      !isEnded(auction) && (
+                        <button
+                          className="btn btn-info me-2"
+                          onClick={() => updateAuction(auction.id)}
+                        >
+                          Update
+                        </button>
+                      )}
+
+                    {isAdmin && (
                       <button
-                        className="btn btn-info me-2"
-                        onClick={() => updateAuction(auction.id)}
+                        className="btn btn-danger me-2"
+                        onClick={() => deleteAuction(auction.id)}
                       >
-                        Update
+                        Delete
                       </button>
                     )}
-
-                  {isAdmin && (
-                    <button
-                      className="btn btn-danger me-2"
-                      onClick={() => deleteAuction(auction.id)}
-                    >
-                      Delete
-                    </button>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div> */}
+    </>
   );
 };
 

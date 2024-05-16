@@ -11,6 +11,7 @@ import UserComponent from "./components/UserComponent";
 import HomeComponent from "./components/HomeComponent";
 import AuctionComponent from "./components/AuctionComponent";
 import LoginComponentV2 from "./components/LoginComponentV2";
+import HeaderComponentV2 from "./components/HeaderComponentV2";
 
 function App() {
   function AuthenticatedRoute({ children }) {
@@ -27,6 +28,7 @@ function App() {
     <>
       <BrowserRouter>
         {/* <HeaderComponent /> */}
+        {isUserLoggedIn() && <HeaderComponentV2 />}
         <Routes>
           <Route path="/" element={<HomeComponent />}></Route>
           <Route

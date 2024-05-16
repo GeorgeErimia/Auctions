@@ -17,35 +17,33 @@ const HeaderComponent = () => {
   }
 
   return (
-    <div>
-      <header>
-        <nav className="navbar navbar-dark bg-dark">
-          <div>
-            <a
-              href={`${currentUser != null ? "/auctions" : "/"}`}
-              className="navbar-brand"
-            >
-              Auctions App
-            </a>
-          </div>
-          <div>
-            {/* Display the current user */}
-            {currentUser != null && (
-              <span className="text-light">
-                <a href={`/user/${currentUser}`}>Logged in as: {currentUser}</a>
-              </span>
-            )}
+    <header className="fixed-header">
+      <nav className="navbar">
+        <div>
+          <a
+            href={`${currentUser != null ? "/auctions" : "/"}`}
+            className="navbar-logo"
+          >
+            Auctions App
+          </a>
+        </div>
+        <div>
+          {/* Display the current user */}
+          {currentUser != null && (
+            <span className="text-light">
+              <a href={`/user/${currentUser}`}>Logged in as: {currentUser}</a>
+            </span>
+          )}
 
-            {/* Display the Logout Button */}
-            {currentUser != null && (
-              <button className="btn btn-danger" onClick={() => handleLogout()}>
-                Logout
-              </button>
-            )}
-          </div>
-        </nav>
-      </header>
-    </div>
+          {/* Display the Logout Button */}
+          {currentUser != null && (
+            <button className="btn btn-danger" onClick={() => handleLogout()}>
+              Logout
+            </button>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 };
 

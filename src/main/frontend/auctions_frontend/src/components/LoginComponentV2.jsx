@@ -6,8 +6,6 @@ import {
   storeToken,
 } from "../services/AuthService";
 
-import "../auth.css";
-
 const LoginComponentV2 = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,45 +47,50 @@ const LoginComponentV2 = () => {
   }
 
   return (
-    <div className="form-auth">
-      <div className="form-header">
-        <h1>Welcome!</h1>
-      </div>
-      <div className="form-body">
-        <div className="form-row">
-          {/* <div className="form-row-left">
+    <div className="container-login">
+      <div className="form-auth">
+        <div className="form-header">
+          <h1>Welcome!</h1>
+        </div>
+        <div className="form-body">
+          <div className="form-row">
+            {/* <div className="form-row-left">
             <span className="form-input-name">Username or Email </span>
           </div> */}
-          <div className="form-row-right">
-            <input
-              type="text"
-              name="username"
-              className="form-input-box"
-              placeholder="Username or Email"
-              value={usernameOrEmail}
-              onChange={(e) => setUsernameOrEmail(e.target.value)}
-            />
+            <div className="form-row-right">
+              <input
+                type="text"
+                name="username"
+                className="form-input-box"
+                placeholder="Username or Email"
+                value={usernameOrEmail}
+                onChange={(e) => setUsernameOrEmail(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-row">
-          {/* <div className="form-row-left">
+          <div className="form-row">
+            {/* <div className="form-row-left">
             <span className="form-input-name">Password</span>
           </div> */}
-          <div className="form-row-right">
-            <input
-              type="password"
-              name="password"
-              className="form-input-box"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="form-row-right">
+              <input
+                type="password"
+                name="password"
+                className="form-input-box"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-buttons">
-          <button className="button-submit" onClick={(e) => handleLoginForm(e)}>
-            Log In
-          </button>
+          <div className="form-buttons">
+            <button
+              className="button-submit"
+              onClick={(e) => handleLoginForm(e)}
+            >
+              Log In
+            </button>
+          </div>
         </div>
       </div>
     </div>
