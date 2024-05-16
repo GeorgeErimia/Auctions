@@ -1,71 +1,70 @@
 package com.example.auctions.Controller;
 
-import com.example.auctions.Exceptions.EmptyListException;
-import com.example.auctions.Exceptions.UserNotFoundException;
-import com.example.auctions.Exceptions.UsernameExistsException;
-import com.example.auctions.Model.dtos.request.UserCreateRequestDTO;
-import com.example.auctions.Model.dtos.UserDTO;
-import com.example.auctions.Repository.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.auctions.DTO.UserDTO;
+import com.example.auctions.Service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v2/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping()
-    public ResponseEntity<List<UserDTO>> getAllUsers() throws EmptyListException {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    // Create a REST API GET endpoint that will return a User from the database BASED BY ID
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+//        UserDTO userDTO = userService.getUserById(id);
+//        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        UserDTO userDTO = userService.getUserById(id);
+        userDTO.setPassword(null);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable final Long id) throws UserNotFoundException {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    // Create a REST API GET endpoint that will return a User from the database BASED BY USERNAME
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
+        UserDTO userDTO = userService.getUserByUsername(username);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable final String username) throws UserNotFoundException {
-        return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
+    // Create a REST API GET endpoint that will return all Users from the database
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> userDTOS = userService.getAllUsers();
+        return new ResponseEntity<>(userDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("/firstName/{firstName}")
-    public ResponseEntity<List<UserDTO>> getAllUsersByFirstName(@PathVariable final String firstName) throws EmptyListException {
-        return new ResponseEntity<>(userService.getAllUsersByFirstName(firstName), HttpStatus.OK);
-    }
-
-    @GetMapping("/lastName/{lastName}")
-    public ResponseEntity<List<UserDTO>> getAllUsersByLastName(@PathVariable final String lastName) throws EmptyListException {
-        return new ResponseEntity<>(userService.getAllUsersByLastName(lastName), HttpStatus.OK);
-    }
-
+    // Create a REST API POST endpoint that will add a new User to the database
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserCreateRequestDTO requestDTO)
-            throws UsernameExistsException {
-        return new ResponseEntity<>(userService.createUser(requestDTO), HttpStatus.CREATED);
+    public ResponseEntity<UserDTO> createUser(@RequestBody final UserDTO userDTO) {
+        UserDTO savedUser = userService.createUser(userDTO);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/id/{id}/update")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserCreateRequestDTO requestDTO)
-            throws UserNotFoundException {
-        return new ResponseEntity<>(userService.updateUserById(id, requestDTO), HttpStatus.OK);
+    // Create a REST API PUT endpoint that will update a User in the database
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> updateUserById(@PathVariable final Long id, @RequestBody final UserDTO userDTO) {
+        UserDTO updatedUser = userService.updateUserById(id, userDTO);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-    @PutMapping("/{username}/update")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable String username, @RequestBody UserCreateRequestDTO requestDTO)
-            throws UserNotFoundException {
-        return new ResponseEntity<>(userService.updateUserByUsername(username, requestDTO), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/id/{id}/delete")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) throws UserNotFoundException {
+    // Create a REST API DELETE endpoint that will delete a User from the database
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable final Long id) {
         userService.deleteUserById(id);
-        return new ResponseEntity<>("User with id " + id + " was deleted!", HttpStatus.OK);
+        return new ResponseEntity<>("User deleted successfully!", HttpStatus.OK);
     }
+
 }
