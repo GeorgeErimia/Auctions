@@ -10,6 +10,7 @@ import RegisterComponent from "./components/RegisterComponent";
 import UserComponent from "./components/UserComponent";
 import HomeComponent from "./components/HomeComponent";
 import AuctionComponent from "./components/AuctionComponent";
+import LoginComponentV2 from "./components/LoginComponentV2";
 
 function App() {
   function AuthenticatedRoute({ children }) {
@@ -25,7 +26,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <HeaderComponent />
+        {/* <HeaderComponent /> */}
         <Routes>
           <Route path="/" element={<HomeComponent />}></Route>
           <Route
@@ -74,9 +75,9 @@ function App() {
           ></Route>
 
           <Route path="/register" element={<RegisterComponent />}></Route>
-          <Route path="/login" element={<LoginComponent />}></Route>
+          <Route path="/login" element={<LoginComponentV2 />}></Route>
         </Routes>
-        <FooterComponent />
+        {/* <FooterComponent /> */}
       </BrowserRouter>
     </>
   );

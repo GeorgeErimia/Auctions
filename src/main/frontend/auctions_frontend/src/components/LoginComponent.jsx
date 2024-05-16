@@ -48,8 +48,6 @@ const LoginComponent = () => {
 
   return (
     <div className="container">
-      <br />
-      <br />
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <div className="card">

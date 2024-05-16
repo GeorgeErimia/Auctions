@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+body {
+  background-color: rgba(7, 31, 77, 0.945);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.form-auth {
+  padding: 3vh 3vw;
+  border: 2px solid antiquewhite;
+  border-radius: 10px;
+  color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 3s;
+}
+
+.form-auth * {
+  /* border: 1px solid antiquewhite; */
+}
+
+.form-header {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-row {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-row-left {
+  /* border: 1px solid brown; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-row-right {
+}
+
+.form-input-name {
+  margin-right: 18px;
+  font-size: 2rem;
+}
+
+.form-input-box {
+  border-radius: 1.5rem;
+  padding: 10px;
+  font-size: 2rem;
+}
+
+.form-buttons {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-buttons button {
+  font-size: 2rem;
+  padding: 1vh 3vh;
+  border-radius: 1.5rem;
+  /* border-radius: 20px; */
+  border: 2px solid #85aaa5;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: #85aaa7;
+  transform: translateY(2px);
+}
+
+.button-submit {
+  color: antiquewhite;
+  background-color: #3e746c;
+}
+
+.button-submit:hover {
+  border: 2px solid antiquewhite;
+}
