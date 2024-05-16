@@ -16,6 +16,18 @@
   }
 }
 
+@keyframes fadeInLong {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes fadeOut {
   100% {
     opacity: 0;
@@ -46,9 +58,9 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 2s;
 }
 
 .form-auth {
@@ -60,6 +72,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation: fadeInLong 2s;
 }
 
 .form-auth * {
@@ -165,4 +178,15 @@ button:active {
     "Lucida Sans", Arial, sans-serif; */
   font-family: "Lobster";
   font-size: xx-large;
+}
+
+.logo {
+  font-family: "Lobster";
+  color: #ff5f00;
+  font-size: 8em;
+  box-sizing: content-box;
+  /* border: 1px solid blue; */
+  margin-bottom: 1em;
+  text-align: center;
+  animation: fadeIn 1s;
 }
