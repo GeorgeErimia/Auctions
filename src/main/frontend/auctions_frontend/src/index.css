@@ -190,3 +190,68 @@ button:active {
   text-align: center;
   animation: fadeIn 1s;
 }
+
+.container {
+  display: flex;
+  /* align-items: stretch; */
+  height: 100%;
+}
+
+.sidebar {
+  flex: 1;
+  width: 100px;
+  background-color: red;
+  overflow: hidden;
+}
+.main-section {
+  flex: 3;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  justify-content: center;
+  background-color: #ff9f66;
+  flex-wrap: wrap;
+}
+
+.auction-element {
+  max-width: 250px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.auction-element > * {
+  max-width: 250px;
+  box-sizing: border-box;
+}
+
+.image-section {
+  border: 1px solid black;
+  padding: 5px;
+  width: 250px;
+  max-width: 250px;
+  max-height: 250px;
+  flex: 3;
+  /* flex: 1; */
+}
+
+#auction-primary-image {
+}
+
+.description-section {
+  border: 1px solid black;
+  flex: 1;
+}
+
+.auction-description {
+}
+
+.actions-section {
+}
+
+#btn-auction-view {
+  width: 150px;
+  height: 50px;
+  font-size: large;
+}

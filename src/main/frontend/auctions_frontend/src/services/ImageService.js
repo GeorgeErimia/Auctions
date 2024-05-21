@@ -55,6 +55,20 @@ export async function fetchImages(auctionId) {
   }
 }
 
+export async function fetchDefaultImage(auctionId) {
+  try {
+    const response = await axios.get(
+      IMAGE_REST_API_URL + `/auction/${auctionId}/default/data`
+    );
+    const imageInfo = response.data;
+
+    return getImage(imageInfo.id);
+  } catch (error) {
+    console.error(error);
+    throw error; // Rethrow the error to handle it in the component
+  }
+}
+
 export async function getImage(imageId) {
   try {
     const response = await axios.get(IMAGE_REST_API_URL + `/${imageId}/image`, {

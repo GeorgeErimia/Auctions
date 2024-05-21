@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface UImageRepository extends JpaRepository<UImage, Long> {
     List<UImage> findAllByAuctionId(Long auctionId);
+
+    UImage findByAuctionIdAndIsDefault(Long auctionId, Boolean isDefault);
 }

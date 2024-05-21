@@ -17,4 +17,8 @@ public interface ImageService {
 
     public String deleteImage(String imageDirectory, String imageName) throws IOException;
 
+    public  UImageDTO makeDefault(Long id);
+
+    public UImageDTO getDefaultImage(Long auctionId);
+
 }

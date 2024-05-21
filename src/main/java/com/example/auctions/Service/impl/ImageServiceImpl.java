@@ -68,7 +68,15 @@ public class ImageServiceImpl implements ImageService {
         UImageDTO uImageDTO = new UImageDTO();
         uImageDTO.setAuctionId(auctionId);
         uImageDTO.setImageUrl(imageUrl);
-        uImageDTO.setIsDefault(isDefault);
+//        uImageDTO.setIsDefault(isDefault);
+
+        // Make the image default if the image is the first image for the auction
+        try {
+            UImage defaultImage = imageRepository.findByAuctionIdAndIsDefault(auctionId, true);
+            uImageDTO.setIsDefault(false);
+        } catch (Exception e) {
+            uImageDTO.setIsDefault(true);
+        }
 
         // Convert the DTO to entity using ModelMapper
         UImage uImage = modelMapper.map(uImageDTO, UImage.class);
@@ -90,6 +98,38 @@ public class ImageServiceImpl implements ImageService {
             return "Image Deleted!";
         } else {
             return "Deletion Failed!";
+        }
+    }
+
+    @Override
+    public UImageDTO makeDefault(Long id) {
+        UImage uImage = imageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Image with id: " + id + " NOT FOUND!"));
+
+        try {
+            UImage defaultImage = imageRepository.findByAuctionIdAndIsDefault(uImage.getAuction().getId(), true);
+            defaultImage.setIsDefault(false);
+            imageRepository.save(defaultImage);
+        } catch (Exception e) {
+            // No default image found
+        } finally {
+            uImage.setIsDefault(true);
+
+            UImage updatedImage = imageRepository.save(uImage);
+
+            UImageDTO uImageDTO = modelMapper.map(updatedImage, UImageDTO.class);
+
+            return uImageDTO;
+        }
+    }
+
+    @Override
+    public UImageDTO getDefaultImage(Long auctionId) {
+        try {
+            UImage uImage = imageRepository.findByAuctionIdAndIsDefault(auctionId, true);
+            UImageDTO uImageDTO = modelMapper.map(uImage, UImageDTO.class);
+            return uImageDTO;
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Default Image for auction with id: " + auctionId + " NOT FOUND!");
         }
     }
 }

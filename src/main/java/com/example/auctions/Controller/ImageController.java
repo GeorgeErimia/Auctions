@@ -32,7 +32,7 @@ public class ImageController {
     private final ModelMapper modelMapper;
 
     // REST API GET endpoint that returns the data of an image entity (id, owner, url)
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/data")
     public ResponseEntity<UImageDTO> getImageData(@PathVariable Long id) {
         // Get the DTO from the repository using imageService
         UImageDTO imageDTO = imageService.getImageDataById(id);
@@ -69,10 +69,24 @@ public class ImageController {
 
     // REST API GET endpoint that returns all the image DTOS from the database from an auction id
     @GetMapping("/auction/{auctionId}/data")
-    public ResponseEntity<List<UImageDTO>> getAllImageData(@PathVariable final Long auctionId) {
-        List<UImage> uImages = imageRepository.findAllByAuctionId(auctionId);
-        List<UImageDTO> uImageDTOS = uImages.stream().map(uImage -> modelMapper.map(uImage, UImageDTO.class)).toList();
+        public ResponseEntity<List<UImageDTO>> getAllImageData(@PathVariable final Long auctionId) {
+            List<UImage> uImages = imageRepository.findAllByAuctionId(auctionId);
+            List<UImageDTO> uImageDTOS = uImages.stream().map(uImage -> modelMapper.map(uImage, UImageDTO.class)).toList();
         return new ResponseEntity<>(uImageDTOS, HttpStatus.OK);
+    }
+
+    // REST API PUT endpoint that makes an image instance default for it's auction
+    @PutMapping("/{id}/makeDefault")
+    public ResponseEntity<UImageDTO> makeImageDefault(@PathVariable final Long id) {
+        UImageDTO updatedImage = imageService.makeDefault(id);
+        return new ResponseEntity<>(updatedImage, HttpStatus.OK);
+    }
+
+    // REST API GET endpoint that gets the default image of an auction
+    @GetMapping("/auction/{auctionId}/default/data")
+    public ResponseEntity<UImageDTO> getDefaultImageForAuction(@PathVariable final Long auctionId) {
+        UImageDTO defaultImage = imageService.getDefaultImage(auctionId);
+        return new ResponseEntity<>(defaultImage, HttpStatus.OK);
     }
 
 

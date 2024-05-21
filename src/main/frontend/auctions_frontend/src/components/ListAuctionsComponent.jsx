@@ -11,10 +11,12 @@ import { getLoggedInUserObj } from "../services/UserService";
 import { convertToDisplay } from "../helper/DateProcessing";
 // import HeaderComponent from "./HeaderComponent";
 import HeaderComponentV2 from "./HeaderComponentV2";
+import { fetchDefaultImage } from "../services/ImageService";
 
 const ListAuctionsComponent = ({ user }) => {
   const [auctions, setAuctions] = useState([]);
   const [currentUserId, setCurrentUserId] = useState("");
+  const [auctionImages, setAuctionImages] = useState({});
 
   const navigator = useNavigate();
 
@@ -59,6 +61,27 @@ const ListAuctionsComponent = ({ user }) => {
     }
   }
 
+  useEffect(() => {
+    if (auctions.length > 0) {
+      const fetchImages = async () => {
+        const images = await Promise.all(
+          auctions.map(async (auction) => {
+            try {
+              const imageUrl = await fetchDefaultImage(auction.id);
+              return { [auction.id]: imageUrl };
+            } catch (error) {
+              console.error(error);
+              return { [auction.id]: null };
+            }
+          })
+        );
+        const imageMap = images.reduce((acc, img) => ({ ...acc, ...img }), {});
+        setAuctionImages(imageMap);
+      };
+      fetchImages();
+    }
+  }, [auctions]);
+
   function addNewAuction() {
     navigator("/add-auction");
   }
@@ -83,77 +106,120 @@ const ListAuctionsComponent = ({ user }) => {
   function auctionsListHeader() {
     if (user != null) {
       if (user === loggedInUser) {
-        return <h1>My Auctions</h1>;
+        return <h1 id="auction-title">My Auctions</h1>;
       } else {
-        return <h1>{`${user}'s Auctions`}</h1>;
+        return <h1 id="auction-title">{`${user}'s Auctions`}</h1>;
       }
     } else {
-      return <h1>Auctions List</h1>;
+      return <h1 id="auction-title">Auctions List</h1>;
     }
   }
 
   return (
     <>
-      {/* <HeaderComponent /> */}
-      {/* <HeaderComponentV2 /> */}
-      {/* <div className="container">
-        {auctionsListHeader()}
-        {(user === loggedInUser || user == null) && (
-          <button className="btn btn-primary mb-2" onClick={addNewAuction}>
-            Add Auction
-          </button>
-        )}
+      {
+        <div className="container">
+          <div className="sidebar"></div>
+          <div className="main-section">
+            {/* <table className="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>User (Owner)</th>
+                  <th>Ends In</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {auctions.map((auction) => {
+                  return (
+                    <tr key={auction.id}>
+                      <td>{auction.id}</td>
+                      <td>
+                        <a href={`/auctions/${auction.id}`}>{auction.name}</a>
+                      </td>
+                      <td>
+                        <a href={`/user/${auction.userUsername}`}>
+                          {auction.userUsername}
+                        </a>
+                      </td>
+                      <td>{convertToDisplay(auction.endDate)}</td>
+                      <td>
+                        {(isAdmin || currentUserId == auction.userId) &&
+                          !isEnded(auction) && (
+                            <button
+                              className="btn btn-info me-2"
+                              onClick={() => updateAuction(auction.id)}
+                            >
+                              Update
+                            </button>
+                          )}
 
-        <table className="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>User (Owner)</th>
-              <th>Ends In</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+                        {isAdmin && (
+                          <button
+                            className="btn btn-danger me-2"
+                            onClick={() => deleteAuction(auction.id)}
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table> */}
             {auctions.map((auction) => {
               return (
-                <tr key={auction.id}>
-                  <td>{auction.id}</td>
-                  <td>
-                    <a href={`/auctions/${auction.id}`}>{auction.name}</a>
-                  </td>
-                  <td>
-                    <a href={`/user/${auction.userUsername}`}>
-                      {auction.userUsername}
-                    </a>
-                  </td>
-                  <td>{convertToDisplay(auction.endDate)}</td>
-                  <td>
-                    {(isAdmin || currentUserId == auction.userId) &&
-                      !isEnded(auction) && (
-                        <button
-                          className="btn btn-info me-2"
-                          onClick={() => updateAuction(auction.id)}
-                        >
-                          Update
-                        </button>
-                      )}
-
-                    {isAdmin && (
-                      <button
-                        className="btn btn-danger me-2"
-                        onClick={() => deleteAuction(auction.id)}
-                      >
-                        Delete
-                      </button>
-                    )}
-                  </td>
-                </tr>
+                <div className="auction-element" key={auction.id}>
+                  <div className="image-section">
+                    <img
+                      src={auctionImages[auction.id] || ""}
+                      alt=""
+                      width="100%"
+                      height="100%"
+                      id="auction-primary-image"
+                    />
+                  </div>
+                  <div className="title-section">
+                    <span className="auction-name">
+                      <a href={`auctions/${auction.id}`}>{auction.name}</a>
+                    </span>
+                  </div>
+                  <div className="description-section">
+                    <span className="auction-description">
+                      {auction.description}
+                    </span>
+                    {/* Here you place bidders, etc */}
+                  </div>
+                  <div className="actions-section">
+                    <button
+                      id="btn-auction-view"
+                      onClick={() => navigator(`/auctions/${auction.id}`)}
+                    >
+                      View Auction
+                    </button>
+                  </div>
+                </div>
               );
             })}
-          </tbody>
-        </table>
-      </div> */}
+            {/* <div className="auctions-container">
+              <div className="image-section">
+                <img
+                  src=""
+                  alt=""
+                  width="300px"
+                  height="250px"
+                  id="auction-primary-image"
+                />
+              </div>
+              <div className="description-section"></div>
+              <div className="actions-section"></div>
+            </div> */}
+          </div>
+        </div>
+      }
     </>
   );
 };
