@@ -12,6 +12,8 @@ import { convertToDateFormat, convertToHours } from "../helper/DateProcessing";
 import ImageComponent from "./ImageComponent";
 import axios from "axios";
 import { fetchImages } from "../services/ImageService";
+import ImageGallery from "./ImageGallery";
+// import ReactImageGallery from "react-image-gallery";
 
 const AuctionComponent = () => {
   const { id } = useParams();
@@ -117,6 +119,21 @@ const AuctionComponent = () => {
     }
   }
 
-  return <div className="container small"></div>;
+  return (
+    <div className="container small">
+      <div className="auction-header">
+        <h1>{auction.name}</h1>
+      </div>
+      <div className="auction-row">
+        <div className="auction-column" id="1">
+          <ImageGallery images={images} />
+        </div>
+        <div className="auction-column" id="2">
+          {/* Auction Actions, small overview  */}
+        </div>
+      </div>
+      <div className="auction-row">{/* Auction details, in depth */}</div>
+    </div>
+  );
 };
 export default AuctionComponent;
