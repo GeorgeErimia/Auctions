@@ -7,7 +7,11 @@ import {
   updateAuction,
 } from "../services/AuctionService";
 import { getUserById } from "../services/UserService";
-import { getLoggedInUser, isAdminUser } from "../services/AuthService";
+import {
+  getLoggedInUser,
+  isAdminUser,
+  isUserLoggedIn,
+} from "../services/AuthService";
 import { convertToDateFormat, convertToHours } from "../helper/DateProcessing";
 import ImageComponent from "./ImageComponent";
 import axios from "axios";
@@ -121,18 +125,59 @@ const AuctionComponent = () => {
 
   return (
     <div className="container small">
-      <div className="auction-header">
+      <div className="row auction-header">
         <h1>{auction.name}</h1>
       </div>
-      <div className="auction-row">
-        <div className="auction-column" id="1">
-          <ImageGallery images={images} />
+      <div className="row">
+        <div className="col auction-col-1">
+          <div className="row auction-row-1">
+            <ImageGallery images={images} />
+          </div>
+          <div className="row">
+            <pre>{auction.description}</pre>
+          </div>
         </div>
-        <div className="auction-column" id="2">
-          {/* Auction Actions, small overview  */}
+        <div className="col auction-col-2">
+          <div className="col details-col">
+            <div className="detail">
+              {" "}
+              <h4>Closes on</h4>
+              <h2>
+                {convertToDateFormat(auction.endDate)} at{" "}
+                {convertToHours(auction.endDate)}
+              </h2>
+            </div>
+
+            <div className="detail">
+              {" "}
+              <span>
+                Owner: <a href={`/user/${auction.userUsername}`}>{ownerName}</a>
+              </span>
+            </div>
+
+            <div className="detail">
+              <span id="highest-bid">Highest bid : 100$</span>
+            </div>
+          </div>
+          <div className="col details-col actions-col">
+            {isUserLoggedIn && (
+              <button className="btn-place-bid btn-action">
+                Place your Bid!
+              </button>
+            )}
+            {(auction.userUsername === getLoggedInUser() || isAdmin) && (
+              <>
+                <button className="btn-edit btn-action">
+                  Edit this Auction
+                </button>
+                <button className="btn-delete btn-action">
+                  Delete this Auction
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
-      <div className="auction-row">{/* Auction details, in depth */}</div>
     </div>
   );
 };

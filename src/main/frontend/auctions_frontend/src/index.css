@@ -195,7 +195,7 @@ button:active {
 }
 
 .container.small {
-  padding: 0 10%;
+  padding: 0 20%;
   display: flex;
   /* justify-content: center; */
   /* align-items: center; */
@@ -266,7 +266,45 @@ button:active {
   /* align-self: flex-start; */
 }
 
-.auction-row {
+.row {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-between; */
+  height: auto;
+  /* flex-direction: row; */
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* flex: 1; */
+}
+
+.auction-col-2 {
+  /* box-sizing: border-box;
+  background-color: aliceblue; */
+}
+
+.details-col {
+  margin-left: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-action {
+  margin: 15px;
+  font-size: larger;
+  padding: 5px 0;
+}
+
+.btn-place-bid {
+}
+.detail {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+#highest-bid {
+  font-size: x-large;
 }
