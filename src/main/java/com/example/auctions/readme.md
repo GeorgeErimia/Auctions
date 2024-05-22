@@ -1,25 +1,21 @@
-TODO : 18.10.2023
-1. Cand se initializeaza un auction, highestBid sa nu fie null, sa fie 0.
-2. Fa o revizie la fiecare controller si serviciu. Mai noteaza alte TODOS
-
-TODO: 7.05.2024 - Switch the AuctionComponent to AuctinFormComponent
-1. Add a new component called AuctionFormComponent
-2. Move the form from AuctionComponent to AuctionFormComponent
-3. Update the AuctionComponent to show the details of the auction
-
 Auctions Web App
 ================
 This application is a simple web application that allows users to create auctions and bid on them. The application is built using Spring Boot and React.
 
 ## Running the application
-To run the application, you need to have Java 11 and Node.js installed on your machine. You can run the application by executing the following commands:
+
+To run the application, you need to have Java 11, Node.js and PostgreSQL installed on your machine. You can run the application by doing the following:
+
+1. Create a database in PostgreSQL called `auctions` and update the `application.properties` file with your database credentials.
+
+2. execute : 
 
 ```
 cd .../com.example.auctions
 ./mvnw spring-boot:run
 ```
 
- For the frontend go to 
+ 3. For the frontend go to 
 ```
 cd .../frontend
 npm start
