@@ -6,7 +6,6 @@ import com.example.auctions.Model.UImage;
 import com.example.auctions.Repository.UImageRepository;
 import com.example.auctions.Service.ImageService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController

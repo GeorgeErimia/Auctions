@@ -22,16 +22,35 @@ const UserComponent = () => {
   });
 
   return (
-    <div>
-      <div className="profile">
-        <h1 className="profile-name">User: {name}</h1>
-        <h5 className="profile-data">Email: {email}</h5>
-        <h5 className="profile-data">Username: {username}</h5>
+    <>
+      <div className="container small">
+        <div className="row">
+          <div className="col">
+            <img
+              src=""
+              alt=""
+              width="500px"
+              height="500px"
+              className="profile-picture"
+            />
+          </div>
+          <div className="col">
+            {" "}
+            <div className="profile">
+              <h1 className="profile-name">User: {name}</h1>
+              <h5 className="profile-data">Email: {email}</h5>
+              <h5 className="profile-data">Username: {username}</h5>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col auctions-list">
+            <span>Auctions List</span>
+            <ListAuctionsComponent user={username} />
+          </div>
+        </div>
       </div>
-      <div>
-        <ListAuctionsComponent user={username} />
-      </div>
-    </div>
+    </>
   );
 };
 

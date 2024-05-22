@@ -161,6 +161,7 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 10;
 }
 
 .header-user-dropdown {
@@ -210,6 +211,7 @@ button:active {
   /* align-items: center; */
   flex-direction: column;
   position: relative;
+  z-index: 1;
 }
 
 .sidebar {
@@ -418,4 +420,13 @@ button:active {
 .form-actions {
   display: flex;
   justify-content: center;
+}
+
+.auctions-list {
+  justify-content: center;
+  align-items: center;
+}
+
+.auctions-list span {
+  font-size: x-large;
 }
