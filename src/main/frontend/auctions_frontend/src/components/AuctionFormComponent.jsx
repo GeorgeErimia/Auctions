@@ -76,68 +76,58 @@ const AuctionFormComponent = () => {
   }, [id]);
 
   return (
-    <div className="container">
-      <br />
-      <br />
-      <div className="row">
-        <div className="card col-md-6 offset-md-3 offset-md-3">
-          {pageTitle()}
-          <div className="card-body">
-            <form>
-              <div className="form-group mb-2">
-                <label className="form-label">Auction Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Auction Name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="form-group mb-2">
-                <label className="form-label">Auction Description</label>
-                {/* <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Description"
-                  name="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                /> */}
-                <textarea
-                  className="form-control"
-                  rows={5}
-                  placeholder="Enter Description"
-                  name="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
-              </div>
-              {isAdminUser() && (
-                <div className="form-group mb-2">
-                  <label className="form-label">Auction User Id</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Enter User Id"
-                    name="userId"
-                    value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
-                  />
-                </div>
-              )}
-
-              <button
-                className="btn btn-success"
-                onClick={(e) => saveOrUpdateAuction(e)}
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
+    <div className="container small">
+      <div className="row-title">
+        <h1>Add Auction</h1>
       </div>
+      <form action="">
+        <div className="form-data">
+          <div className="form-data" id="form-auction-name">
+            <label>Item Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Item Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="form-data" id="form-auction-description">
+            <label>Item Description</label>
+            <textarea
+              name="description"
+              placeholder="Enter Description"
+              rows={10}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </div>
+          {isAdminUser() && (
+            <div className="form-data" id="form-auction-owner-id">
+              <label>Owner ID</label>
+              <input
+                type="number"
+                placeholder="Enter Owner ID"
+                name="userId"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+        <div className="form-images"></div>
+        <div className="form-actions">
+          <button
+            className="btn-submit"
+            onClick={(e) => saveOrUpdateAuction(e)}
+          >
+            Submit
+          </button>
+          <button className="btn-cancel" onClick={() => History.go(-1)}>
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

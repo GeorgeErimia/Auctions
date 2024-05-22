@@ -308,3 +308,9 @@ button:active {
 #highest-bid {
   font-size: x-large;
 }
+
+.row-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}

@@ -167,9 +167,16 @@ const AuctionComponent = () => {
             )}
             {(auction.userUsername === getLoggedInUser() || isAdmin) && (
               <>
-                <button className="btn-edit btn-action">
+                <button
+                  className="btn-edit btn-action"
+                  onClick={() => navigator(`/update-auction/${auction.id}`)}
+                >
                   Edit this Auction
                 </button>
+              </>
+            )}
+            {isAdmin && (
+              <>
                 <button className="btn-delete btn-action">
                   Delete this Auction
                 </button>
