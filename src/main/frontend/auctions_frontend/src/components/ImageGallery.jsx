@@ -5,31 +5,33 @@ import "../image-gallery.css";
 const ImageGallery = (props) => {
   const images = props.images;
 
-  let imageIndex = 0;
+  const [imageIndex, setImageIndex] = useState(0);
 
   const [activeImage, setActiveImage] = useState(images[0]);
 
   function nextImage() {
     if (imageIndex < images.length - 1) {
-      imageIndex++;
+      setImageIndex(imageIndex + 1);
     }
     // console.log("index: " + imageIndex);
     // console.log("length: " + images.length);
-    setActiveImage(images[imageIndex]);
+
+    // setActiveImage(images[imageIndex]);
   }
 
   function prevImage() {
     if (imageIndex > 0) {
-      imageIndex--;
+      setImageIndex(imageIndex - 1);
     }
     // console.log("index: " + imageIndex);
     // console.log("length: " + images.length);
-    setActiveImage(images[imageIndex]);
+
+    // setActiveImage(images[imageIndex]);
   }
 
   useEffect(() => {
     setActiveImage(images[imageIndex]);
-  }, [images]);
+  }, [images, imageIndex]);
 
   return (
     <div className="container-gallery">

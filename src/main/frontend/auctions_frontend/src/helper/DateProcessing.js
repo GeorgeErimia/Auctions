@@ -1,23 +1,23 @@
 export const convertTimestampToDate = (timestamp) => {
   var dateResult = new Date(timestamp);
-  //   console.log(dateResult);
   return dateResult;
 };
 
 export const convertToDateFormat = (timestamp) => {
   var dateResult = convertTimestampToDate(timestamp);
-  return (
-    dateResult.getDate() +
-    "." +
-    (dateResult.getMonth() + 1) +
-    "." +
-    dateResult.getFullYear()
-  );
+  // Add leading zero for day and month if needed
+  var day = ("0" + dateResult.getDate()).slice(-2);
+  var month = ("0" + (dateResult.getMonth() + 1)).slice(-2);
+  return day + "." + month + "." + dateResult.getFullYear();
 };
 
 export const convertToHours = (timestamp) => {
   var dateResult = convertTimestampToDate(timestamp);
-  return dateResult.getHours() + ":" + dateResult.getMinutes();
+  // Add leading zero for hours, minutes, and seconds if needed
+  var hours = ("0" + dateResult.getHours()).slice(-2);
+  var minutes = ("0" + dateResult.getMinutes()).slice(-2);
+  var seconds = ("0" + dateResult.getSeconds()).slice(-2);
+  return hours + ":" + minutes + ":" + seconds;
 };
 
 export const convertToDisplay = (timestamp) => {
