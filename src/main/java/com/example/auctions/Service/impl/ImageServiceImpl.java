@@ -68,7 +68,7 @@ public class ImageServiceImpl implements ImageService {
         UImageDTO uImageDTO = new UImageDTO();
         uImageDTO.setAuctionId(auctionId);
         uImageDTO.setImageUrl(imageUrl);
-//        uImageDTO.setIsDefault(isDefault);
+        uImageDTO.setIsDefault(isDefault);
 
         // Make the image default if the image is the first image for the auction
         try {

@@ -115,7 +115,7 @@ const AuctionComponent = () => {
       removeAuction(id)
         .then((response) => {
           console.log(response);
-          navigator("/");
+          navigator("/auctions");
         })
         .catch((error) => {
           console.error(error);
@@ -177,7 +177,10 @@ const AuctionComponent = () => {
             )}
             {isAdmin && (
               <>
-                <button className="btn-delete btn-action">
+                <button
+                  className="btn-delete btn-action"
+                  onClick={() => deleteAuction(auction.id)}
+                >
                   Delete this Auction
                 </button>
               </>

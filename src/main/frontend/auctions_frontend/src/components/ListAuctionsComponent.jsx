@@ -12,6 +12,7 @@ import { convertToDisplay } from "../helper/DateProcessing";
 // import HeaderComponent from "./HeaderComponent";
 import HeaderComponentV2 from "./HeaderComponentV2";
 import { fetchDefaultImage } from "../services/ImageService";
+import AuctionItemComponent from "./AuctionItemComponent";
 
 const ListAuctionsComponent = ({ user }) => {
   const [auctions, setAuctions] = useState([]);
@@ -119,7 +120,7 @@ const ListAuctionsComponent = ({ user }) => {
     <>
       {
         <div className="container">
-          <div className="sidebar"></div>
+          {/* <div className="sidebar"></div> */}
           <div className="main-section">
             {/* <table className="table table-bordered table-striped">
               <thead>
@@ -172,36 +173,11 @@ const ListAuctionsComponent = ({ user }) => {
             </table> */}
             {auctions.map((auction) => {
               return (
-                <div className="auction-element" key={auction.id}>
-                  <div className="image-section">
-                    <img
-                      src={auctionImages[auction.id] || ""}
-                      alt=""
-                      width="100%"
-                      height="100%"
-                      id="auction-primary-image"
-                    />
-                  </div>
-                  <div className="title-section">
-                    <span className="auction-name">
-                      <a href={`auctions/${auction.id}`}>{auction.name}</a>
-                    </span>
-                  </div>
-                  <div className="description-section">
-                    <span className="auction-description">
-                      {auction.description}
-                    </span>
-                    {/* Here you place bidders, etc */}
-                  </div>
-                  <div className="actions-section">
-                    <button
-                      id="btn-auction-view"
-                      onClick={() => navigator(`/auctions/${auction.id}`)}
-                    >
-                      View Auction
-                    </button>
-                  </div>
-                </div>
+                <AuctionItemComponent
+                  auction={auction}
+                  image={auctionImages[auction.id]}
+                  key={auction.id}
+                />
               );
             })}
             {/* <div className="auctions-container">

@@ -56,9 +56,6 @@ const LoginComponentV2 = () => {
           </div>
           <div className="form-body">
             <div className="form-row">
-              {/* <div className="form-row-left">
-          <span className="form-input-name">Username or Email </span>
-        </div> */}
               <div className="form-row-right">
                 <input
                   type="text"
@@ -71,9 +68,6 @@ const LoginComponentV2 = () => {
               </div>
             </div>
             <div className="form-row">
-              {/* <div className="form-row-left">
-          <span className="form-input-name">Password</span>
-        </div> */}
               <div className="form-row-right">
                 <input
                   type="password"
@@ -92,6 +86,12 @@ const LoginComponentV2 = () => {
               >
                 Log In
               </button>
+            </div>
+            <div className="form-row">
+              {" "}
+              <span>
+                Don't have an account? <a href="/register">Register here!</a>
+              </span>
             </div>
           </div>
         </div>

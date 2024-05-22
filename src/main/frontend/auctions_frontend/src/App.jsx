@@ -12,6 +12,7 @@ import HomeComponent from "./components/HomeComponent";
 import AuctionComponent from "./components/AuctionComponent";
 import LoginComponentV2 from "./components/LoginComponentV2";
 import HeaderComponentV2 from "./components/HeaderComponentV2";
+import ImageInputFormComponent from "./components/ImageInputFormComponent";
 
 function App() {
   function AuthenticatedRoute({ children }) {
@@ -78,6 +79,11 @@ function App() {
 
           <Route path="/register" element={<RegisterComponent />}></Route>
           <Route path="/login" element={<LoginComponentV2 />}></Route>
+
+          <Route
+            path="/add-images"
+            element={<ImageInputFormComponent></ImageInputFormComponent>}
+          ></Route>
         </Routes>
         {/* <FooterComponent /> */}
       </BrowserRouter>

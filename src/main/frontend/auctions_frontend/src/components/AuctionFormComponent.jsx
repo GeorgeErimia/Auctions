@@ -44,9 +44,9 @@ const AuctionFormComponent = () => {
 
   function pageTitle() {
     if (id) {
-      return <h2 className="text-center">Update Auction</h2>;
+      return <h1>Edit Auction</h1>;
     } else {
-      return <h2 className="text-center">Add Auction</h2>;
+      return <h1>Add Auction</h1>;
     }
   }
 
@@ -77,13 +77,14 @@ const AuctionFormComponent = () => {
 
   return (
     <div className="container small">
-      <div className="row-title">
-        <h1>Add Auction</h1>
-      </div>
-      <form action="">
-        <div className="form-data">
-          <div className="form-data" id="form-auction-name">
+      <div className="row-title">{pageTitle()}</div>
+      <form action="" className="auction-form">
+        <div className="form-data" id="form-auction-name">
+          <div className="form-label">
             <label>Item Name</label>
+          </div>
+          <div className="form-input">
+            {" "}
             <input
               type="text"
               name="name"
@@ -92,8 +93,13 @@ const AuctionFormComponent = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className="form-data" id="form-auction-description">
+        </div>
+        <div className="form-data" id="form-auction-description">
+          <div className="form-label">
             <label>Item Description</label>
+          </div>
+          <div className="form-input">
+            {" "}
             <textarea
               name="description"
               placeholder="Enter Description"
@@ -102,9 +108,14 @@ const AuctionFormComponent = () => {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
-          {isAdminUser() && (
-            <div className="form-data" id="form-auction-owner-id">
+        </div>
+        {isAdminUser() && (
+          <div className="form-data" id="form-auction-owner-id">
+            <div className="form-label">
               <label>Owner ID</label>
+            </div>
+            <div className="form-input">
+              {" "}
               <input
                 type="number"
                 placeholder="Enter Owner ID"
@@ -113,8 +124,8 @@ const AuctionFormComponent = () => {
                 onChange={(e) => setUserId(e.target.value)}
               />
             </div>
-          )}
-        </div>
+          </div>
+        )}
         <div className="form-images"></div>
         <div className="form-actions">
           <button
@@ -123,7 +134,7 @@ const AuctionFormComponent = () => {
           >
             Submit
           </button>
-          <button className="btn-cancel" onClick={() => History.go(-1)}>
+          <button className="btn-cancel" onClick={() => navigator("/auctions")}>
             Cancel
           </button>
         </div>

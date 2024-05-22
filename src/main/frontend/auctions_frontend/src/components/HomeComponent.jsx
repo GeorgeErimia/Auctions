@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 import { useNavigate } from "react-router-dom";
-import { getLoggedInUser } from "../services/AuthService";
+import { getLoggedInUser, isUserLoggedIn } from "../services/AuthService";
 
 const HomeComponent = () => {
   const [loggedInUser, setLoggedInUser] = useState("");
@@ -10,10 +10,15 @@ const HomeComponent = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    setLoggedInUser(getLoggedInUser());
-    if (loggedInUser != null) {
+    if (isUserLoggedIn()) {
+      navigator("/auctions");
+    } else {
       navigator("/login");
     }
+    // setLoggedInUser(getLoggedInUser());
+    // if (loggedInUser != null) {
+    //   navigator("/login");
+    // }
   });
 
   return <div>Home Component</div>;

@@ -28,91 +28,164 @@ const RegisterComponent = () => {
   }
 
   return (
-    <div className="container">
-      <br />
-      <br />
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <div className="card">
-            <div className="card-header">
-              <h2 className="text-center">Register</h2>
+    // <div className="container-login">
+    //   <h1 className="logo">Auction Haven</h1>
+    //   <div className="row">
+    //     <div className="col-md-6 offset-md-3">
+    //       <div className="card">
+    //         <div className="card-header">
+    //           <h2 className="text-center">Register</h2>
+    //         </div>
+
+    //         <div className="card-body">
+    //           <form action="">
+    //             <div className="row mb-3">
+    //               <label className="col-md-3 control-label">Name </label>
+    //               <div className="col-md-9">
+    //                 <input
+    //                   type="text"
+    //                   name="name"
+    //                   className="form-control"
+    //                   placeholder="Enter Name"
+    //                   value={name}
+    //                   onChange={(e) => setName(e.target.value)}
+    //                 />
+    //               </div>
+    //             </div>
+
+    //             <div className="row mb-3">
+    //               <label className="col-md-3 control-label">Username </label>
+    //               <div className="col-md-9">
+    // <input
+    //   type="text"
+    //   name="username"
+    //   className="form-control"
+    //   placeholder="Enter Username"
+    //   value={username}
+    //   onChange={(e) => setUsername(e.target.value)}
+    // />
+    //               </div>
+    //             </div>
+
+    //             <div className="row mb-3">
+    //               <label className="col-md-3 control-label">Email </label>
+    //               <div className="col-md-9">
+    // <input
+    //   type="text"
+    //   name="email"
+    //   className="form-control"
+    //   placeholder="Enter Email"
+    //   value={email}
+    //   onChange={(e) => setEmail(e.target.value)}
+    // />
+    //               </div>
+    //             </div>
+
+    //             <div className="row mb-3">
+    //               <label className="col-md-3 control-label">Password </label>
+    //               <div className="col-md-9">
+    //                 <input
+    //                   type="password"
+    //                   name="password"
+    //                   className="form-control"
+    //                   placeholder="Enter Password"
+    //                   value={password}
+    //                   onChange={(e) => setPassword(e.target.value)}
+    //                 />
+    //               </div>
+    //             </div>
+
+    //             <div className="form-group mb-3">
+    //               <button
+    //                 className="btn btn-primary"
+    //                 onClick={(e) => handleRegistrationForm(e)}
+    //               >
+    //                 Submit
+    //               </button>
+    //             </div>
+    //           </form>
+    //           <span>
+    //             Already have an account? <a href="/login">Log in</a>
+    //           </span>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+
+    <>
+      <div className="container-login">
+        <h1 className="logo">Auction Haven</h1>
+        <div className="form-auth">
+          <div className="form-header">
+            <h1>Welcome!</h1>
+          </div>
+          <div className="form-body">
+            <div className="form-row">
+              <div className="form-row-right">
+                <input
+                  type="text"
+                  name="name"
+                  className="form-input-box"
+                  placeholder="Enter Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
             </div>
-
-            <div className="card-body">
-              <form action="">
-                <div className="row mb-3">
-                  <label className="col-md-3 control-label">Name </label>
-                  <div className="col-md-9">
-                    <input
-                      type="text"
-                      name="name"
-                      className="form-control"
-                      placeholder="Enter Name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <label className="col-md-3 control-label">Username </label>
-                  <div className="col-md-9">
-                    <input
-                      type="text"
-                      name="username"
-                      className="form-control"
-                      placeholder="Enter Username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <label className="col-md-3 control-label">Email </label>
-                  <div className="col-md-9">
-                    <input
-                      type="text"
-                      name="email"
-                      className="form-control"
-                      placeholder="Enter Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <label className="col-md-3 control-label">Password </label>
-                  <div className="col-md-9">
-                    <input
-                      type="password"
-                      name="password"
-                      className="form-control"
-                      placeholder="Enter Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group mb-3">
-                  <button
-                    className="btn btn-primary"
-                    onClick={(e) => handleRegistrationForm(e)}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
+            <div className="form-row">
+              <div className="form-row-right">
+                <input
+                  type="text"
+                  name="username"
+                  className="form-input-box"
+                  placeholder="Enter Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-row-right">
+                <input
+                  type="text"
+                  name="email"
+                  className="form-input-box"
+                  placeholder="Enter Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-row-right">
+                <input
+                  type="password"
+                  name="password"
+                  className="form-input-box"
+                  placeholder="Enter Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="form-buttons">
+              <button
+                className="button-submit"
+                onClick={(e) => handleRegistrationForm(e)}
+              >
+                Register
+              </button>
+            </div>
+            <div className="form-row">
               <span>
-                Already have an account? <a href="/login">Log in</a>
+                Already have an account? <a href="/login">Log In!</a>
               </span>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
