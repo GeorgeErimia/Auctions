@@ -160,7 +160,7 @@ const AuctionComponent = () => {
             </div>
           </div>
           <div className="col details-col actions-col">
-            {isUserLoggedIn && (
+            {isUserLoggedIn() && getLoggedInUser() !== auction.userUsername && (
               <button className="btn-place-bid btn-action">
                 Place your Bid!
               </button>

@@ -14,7 +14,7 @@ const AuctionItemComponent = (props) => {
           src={image || ""}
           alt=""
           width="100%"
-          height="100%"
+          height="auto"
           id="auction-primary-image"
           onClick={() => {
             navigator(`/auctions/${auction.id}`);

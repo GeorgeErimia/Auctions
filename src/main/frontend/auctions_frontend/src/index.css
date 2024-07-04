@@ -7,6 +7,13 @@
     "Lucida Sans", Arial, sans-serif;
 }
 
+:root {
+  --color-0: #ff5f00;
+  --color-1: #fffae6;
+  --color-2: #ff9f66;
+  --color-3: #002379;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -38,7 +45,7 @@
 }
 
 body {
-  background-color: #fffae6;
+  background-color: var(--color-1);
 }
 
 /* #root {
@@ -58,7 +65,7 @@ body {
 }
 
 .container-login {
-  background-color: #fffae6;
+  background-color: var(--color-1);
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -69,9 +76,9 @@ body {
 
 .form-auth {
   padding: 3vh 3vw;
-  border: 5px solid #ff9f66;
+  border: 5px solid var(--color-2);
   border-radius: 10px;
-  color: #ff9f66;
+  color: var(--color-2);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -111,13 +118,13 @@ body {
 
 .form-input-box {
   border-radius: 1.5rem;
-  border: 2px solid #ff9f66;
+  border: 2px solid var(--color-2);
   padding: 10px;
   font-size: 2rem;
 }
 
 .form-input-box::placeholder {
-  color: #002379;
+  color: var(--color-3);
 }
 
 .form-buttons {
@@ -132,18 +139,18 @@ body {
   padding: 1vh 3vh;
   border-radius: 1.5rem;
   /* border-radius: 20px; */
-  border: 2px solid #ff9f66;
+  border: 2px solid var(--color-2);
   cursor: pointer;
 }
 
 button:active {
-  background-color: #ff9f66;
+  background-color: var(--color-2);
   transform: translateY(2px);
 }
 
 .button-submit {
-  color: #fffae6;
-  background-color: #002379;
+  color: var(--color-1);
+  background-color: var(--color-3);
 }
 
 .button-submit:hover {
@@ -157,7 +164,7 @@ button:active {
   width: 100%;
   height: 10%;
   min-height: 80px;
-  background-color: #ff5f00;
+  background-color: var(--color-0);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -167,7 +174,7 @@ button:active {
 .header-user-dropdown {
   padding: 10px;
   flex-direction: column;
-  background-color: #fffae6;
+  background-color: var(--color-1);
   display: none;
   position: absolute;
   animation: fadeIn 0.2s;
@@ -184,14 +191,14 @@ button:active {
 
 .header-logo-anchor {
   text-decoration: none;
-  color: #002379;
+  color: var(--color-3);
   font-family: "Lobster";
   font-size: xx-large;
 }
 
 .logo {
   font-family: "Lobster";
-  color: #ff5f00;
+  color: var(--color-0);
   font-size: 8em;
   box-sizing: content-box;
   margin-bottom: 1em;
@@ -217,7 +224,7 @@ button:active {
 .sidebar {
   flex: 1;
   width: 100px;
-  background-color: #fffae6;
+  background-color: var(--color-1);
   overflow: hidden;
 }
 .main-section {
@@ -226,13 +233,13 @@ button:active {
   flex-direction: row;
   /* align-items: center; */
   justify-content: center;
-  background-color: #fffae6;
+  background-color: var(--color-1);
   flex-wrap: wrap;
 }
 
 .auction-element {
   max-width: 270px;
-  border: 3px solid #ff5f00;
+  border: 3px solid var(--color-0);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -257,6 +264,8 @@ button:active {
   flex: 3;
   /* flex: 1; */
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 #auction-primary-image {
@@ -310,17 +319,17 @@ button:active {
   width: 150px;
   height: 50px;
   font-size: large;
-  border: 2px solid #ff5f00;
+  border: 2px solid var(--color-0);
   border-radius: 5px;
-  background-color: #fffae6;
+  background-color: var(--color-1);
   margin: 10px;
 }
 
 #btn-auction-view:hover,
 .form-actions > *:hover {
   cursor: pointer;
-  background-color: #002379;
-  color: #fffae6;
+  background-color: var(--color-3);
+  color: var(--color-1);
 }
 
 .auction-header {
@@ -402,7 +411,7 @@ button:active {
 .form-input > input,
 .form-input > textarea {
   margin-left: 10px;
-  border: 2px solid #ff5f00;
+  border: 2px solid var(--color-0);
   border-radius: 10px;
   padding: 5px;
 }

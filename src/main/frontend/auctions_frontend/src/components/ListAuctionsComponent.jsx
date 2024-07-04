@@ -27,13 +27,13 @@ const ListAuctionsComponent = ({ user }) => {
 
   useEffect(() => {
     listAuctions();
-    // Set up a timer to update the auctions every second
-    const interval = setInterval(() => {
-      listAuctions();
-    }, 1000);
+    // // Set up a timer to update the auctions every second
+    // const interval = setInterval(() => {
+    //   listAuctions();
+    // }, 1000);
 
-    // Clean up the timer when the component unmounts
-    return () => clearInterval(interval);
+    // // Clean up the timer when the component unmounts
+    // return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -122,55 +122,6 @@ const ListAuctionsComponent = ({ user }) => {
         <div className="container">
           {/* <div className="sidebar"></div> */}
           <div className="main-section">
-            {/* <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>User (Owner)</th>
-                  <th>Ends In</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {auctions.map((auction) => {
-                  return (
-                    <tr key={auction.id}>
-                      <td>{auction.id}</td>
-                      <td>
-                        <a href={`/auctions/${auction.id}`}>{auction.name}</a>
-                      </td>
-                      <td>
-                        <a href={`/user/${auction.userUsername}`}>
-                          {auction.userUsername}
-                        </a>
-                      </td>
-                      <td>{convertToDisplay(auction.endDate)}</td>
-                      <td>
-                        {(isAdmin || currentUserId == auction.userId) &&
-                          !isEnded(auction) && (
-                            <button
-                              className="btn btn-info me-2"
-                              onClick={() => updateAuction(auction.id)}
-                            >
-                              Update
-                            </button>
-                          )}
-
-                        {isAdmin && (
-                          <button
-                            className="btn btn-danger me-2"
-                            onClick={() => deleteAuction(auction.id)}
-                          >
-                            Delete
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table> */}
             {auctions.map((auction) => {
               return (
                 <AuctionItemComponent
@@ -180,19 +131,6 @@ const ListAuctionsComponent = ({ user }) => {
                 />
               );
             })}
-            {/* <div className="auctions-container">
-              <div className="image-section">
-                <img
-                  src=""
-                  alt=""
-                  width="300px"
-                  height="250px"
-                  id="auction-primary-image"
-                />
-              </div>
-              <div className="description-section"></div>
-              <div className="actions-section"></div>
-            </div> */}
           </div>
         </div>
       }
